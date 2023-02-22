@@ -1,0 +1,28 @@
+jenkins:
+  # Set a jenkins user
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+       - id: admin
+         password: ad5c735a7b18470587127aa1b40ae18b
+  # Set authorization about a previous setted user ddnamed as '${JENKINS_ADMIN_ID}'
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Overall/Administer:admin"
+        - "Overall/Read:authenticated"
+  
+  # Enable 'Agent to Controller Access Control'
+  remotingSecurity:
+    enabled: true
+# Set a build authorization
+security:
+  queueItemAuthenticator:
+    authenticators:
+    - global:
+        strategy: triggeringUsersAuthorizationStrategy
+# Specifying a jenkins URL
+unclassified:
+  location:
+    url: http://10.0.2.121:32000/
